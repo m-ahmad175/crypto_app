@@ -1,6 +1,5 @@
 package com.azcryptoapp.presentation.coin_detail
 
-import com.azcryptoapp.domain.model.Coin
 import com.azcryptoapp.domain.model.CoinDetail
 
 data class CoinDetailState(
