@@ -1,0 +1,40 @@
+coinpaprika is used to get crypto currency API
+we are using these two API
+
+https://api.coinpaprika.com/v1/coins ---> to get coins info
+https://api.coinpaprika.com/v1/coins/btc-bitcoin ---> to get info of a specific coin
+
+** we are using clean Architecture
+in MVVM use use-cases that contains our business logic
+    MVVM has an issue in its implementation as the application grows we are left with
+    GOD viewmodel because that are carrying all the business logic that is why we introduce use-cases to hold the
+    business logic to avoid this problem
+
+Profile view and dit profile combined is called a feature and all the action performed on a feature can be called use-cases
+    like getProfileData to show profile
+    Update Profile picture
+    * the main advantage of handling these action in use-case layer is that they can be reuseAble and
+      they can be used in multiple viewModels without repeating th cod and login
+    * Screening architecture
+
+Presentation Layer
+    UI that is present to User
+    Composable
+    XML
+    viewModels
+
+Domain Layers
+    Models that actual entities that contains Data
+    Repository Definitions --> Interfaces for repositories
+    Business logics so that use-cases
+
+Data Layers
+    Data
+    API Interface
+    Database
+    Repository Implementation
+
+
+
+
+
