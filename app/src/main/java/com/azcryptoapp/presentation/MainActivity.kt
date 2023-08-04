@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
 
             CryptoAppTheme(isDark = true) {
 
+
                 Surface(color = MaterialTheme.colors.background) {
 
                     val navController = rememberNavController()

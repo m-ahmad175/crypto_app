@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -18,6 +19,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.azcryptoapp.presentation.Screen
 import com.azcryptoapp.presentation.coin_list.components.CoinListItem
+import com.azcryptoapp.presentation.component.SearchBar
 
 
 @Composable
@@ -27,28 +29,39 @@ fun CoinListScreen(
 ) {
 
     val state = viewModel.state.value
+    val query = viewModel.query.value
 
-    Box(modifier = Modifier.fillMaxSize()) {
-        LazyColumn(modifier = Modifier.fillMaxSize()) {
-            items(state.coins) { coin ->
-                CoinListItem(coin = coin, onClickItem = {
-                    navController.navigate(Screen.CoinDetailScreen.route + "/${coin.id}")
-                })
+    Scaffold(topBar = {
+        SearchBar(query = query, modifier = Modifier,
+            onQueryChange = viewModel::onQueryChange) {
+            
+        }
+    }) {
+
+        Box(modifier = Modifier.fillMaxSize()) {
+            LazyColumn(modifier = Modifier.fillMaxSize()) {
+                items(state.coins) { coin ->
+                    CoinListItem(coin = coin, onClickItem = {
+                        navController.navigate(Screen.CoinDetailScreen.route + "/${coin.id}")
+                    })
+                }
+            }
+            if (state.error.isNotBlank()) {
+                Text(
+                    text = state.error, color =
+                    MaterialTheme.colors.error,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 20.dp)
+                        .align(Alignment.Center)
+                )
+            }
+            if (state.isLoading) {
+                CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
             }
         }
-        if (state.error.isNotBlank()) {
-            Text(
-                text = state.error, color =
-                MaterialTheme.colors.error,
-                textAlign = TextAlign.Center,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 20.dp)
-                    .align(Alignment.Center)
-            )
-        }
-        if (state.isLoading) {
-            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
-        }
     }
+
+
 }
